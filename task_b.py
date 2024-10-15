@@ -15,7 +15,7 @@ try:
             else:
                  grade = 'F'
              
-            print(f"Your grade is:{grade}")
+            print(f"Your grade is: {grade}")
 
 except ValueError:
     
