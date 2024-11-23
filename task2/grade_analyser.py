@@ -14,10 +14,10 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    # Generate the output file name as {inputfilename}_out.csv
+    # Ensure the output file is named exactly as {inputfilename}_out.csv
     base_name = os.path.basename(filename)
-    output_file = base_name.replace('.csv', '') + "_out.csv"
-    
+    output_file = os.path.splitext(base_name)[0] + "_out.csv"  # Keep only base name and add _out.csv
+
     try:
         with open(filename, 'r') as infile, open(output_file, 'w', newline='') as outfile:
             reader = csv.reader(infile)
