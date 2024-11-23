@@ -14,16 +14,16 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    
-    base_name = os.path.basename(filename) 
-    output_file = os.path.splitext(base_name)[0] + "_out.csv"  
+    # Ensure the output file name follows the correct format
+    base_name = os.path.basename(filename)
+    output_file = os.path.splitext(base_name)[0] + "_out.csv"
 
     try:
         with open(filename, 'r') as infile, open(output_file, 'w', newline='') as outfile:
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
-            
+            # Read and skip the header row of the CSV file
             headers = next(reader)
             writer.writerow(["student_id", "average_grade", "classification"])
 
@@ -36,18 +36,29 @@ def process_student_data(filename):
                     else:
                         average_grade = 0.0
                     classification = get_classification(average_grade)
-                    
                     writer.writerow([student_id, f"{average_grade:.2f}", classification])
                 except ValueError:
                     print(f"Warning: Invalid data for student ID {student_id}, skipping this entry.")
 
         print(f"Data has been saved to {output_file}")
+        return output_file
 
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
+        return None
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+        return None
 
 if __name__ == "__main__":
-    input_filename = "student_data_10.csv"  
-    process_student_data(input_filename)
+    # List of input files
+    input_files = [
+        "student_data_10.csv",
+        "student_data_25.csv",
+        "student_data_50_A.csv",
+        "student_data_50_B.csv"
+    ]
+
+    # Process each file
+    for file in input_files:
+        process_student_data(file)
