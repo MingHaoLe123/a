@@ -14,16 +14,16 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    # 生成输出文件名为 {inputfilename}_out.csv
-    base_name = os.path.basename(filename)  # 获取文件名
-    output_file = os.path.splitext(base_name)[0] + "_out.csv"  # 去除扩展名并加 _out.csv
+    
+    base_name = os.path.basename(filename) 
+    output_file = os.path.splitext(base_name)[0] + "_out.csv"  
 
     try:
         with open(filename, 'r') as infile, open(output_file, 'w', newline='') as outfile:
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
-            # 读取并跳过 CSV 文件的标题行
+        
             headers = next(reader)
             writer.writerow(["student_id", "average_grade", "classification"])
 
