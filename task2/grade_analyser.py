@@ -1,4 +1,5 @@
 import csv
+import os
 
 def get_classification(average_grade):
     if average_grade >= 70:
@@ -13,7 +14,10 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    output_file = filename.replace('.csv', '') + "_out.csv"
+    # Generate the output file name as {inputfilename}_out.csv
+    base_name = os.path.basename(filename)
+    output_file = base_name.replace('.csv', '') + "_out.csv"
+    
     try:
         with open(filename, 'r') as infile, open(output_file, 'w', newline='') as outfile:
             reader = csv.reader(infile)
