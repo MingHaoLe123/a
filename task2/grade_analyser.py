@@ -14,7 +14,7 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    # Ensure the output file name follows the correct format
+    
     base_name = os.path.basename(filename)
     output_file = os.path.splitext(base_name)[0] + "_out.csv"
 
@@ -23,7 +23,7 @@ def process_student_data(filename):
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
-            # Read and skip the header row of the CSV file
+            
             headers = next(reader)
             writer.writerow(["student_id", "average_grade", "classification"])
 
@@ -51,7 +51,7 @@ def process_student_data(filename):
         return None
 
 if __name__ == "__main__":
-    # List of input files
+   
     input_files = [
         "student_data_10.csv",
         "student_data_25.csv",
@@ -59,6 +59,6 @@ if __name__ == "__main__":
         "student_data_50_B.csv"
     ]
 
-    # Process each file
+
     for file in input_files:
         process_student_data(file)
