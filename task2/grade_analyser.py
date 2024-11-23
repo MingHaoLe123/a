@@ -14,16 +14,16 @@ def get_classification(average_grade):
         return "F"
 
 def process_student_data(filename):
-    # Ensure the output file is named exactly as {inputfilename}_out.csv
-    base_name = os.path.basename(filename)
-    output_file = os.path.splitext(base_name)[0] + "_out.csv"  # Keep only base name and add _out.csv
+    # 生成输出文件名为 {inputfilename}_out.csv
+    base_name = os.path.basename(filename)  # 获取文件名
+    output_file = os.path.splitext(base_name)[0] + "_out.csv"  # 去除扩展名并加 _out.csv
 
     try:
         with open(filename, 'r') as infile, open(output_file, 'w', newline='') as outfile:
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
-            # Read and skip the header row of the CSV file
+            # 读取并跳过 CSV 文件的标题行
             headers = next(reader)
             writer.writerow(["student_id", "average_grade", "classification"])
 
@@ -36,17 +36,4 @@ def process_student_data(filename):
                     else:
                         average_grade = 0.0
                     classification = get_classification(average_grade)
-                    writer.writerow([student_id, f"{average_grade:.2f}", classification])
-                except ValueError:
-                    print(f"Warning: Invalid data for student ID {student_id}, skipping this entry.")
-
-        print(f"Data has been saved to {output_file}")
-
-    except FileNotFoundError:
-        print(f"Error: File '{filename}' not found.")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-
-if __name__ == "__main__":
-    input_filename = input("Enter the CSV file name: ").strip()
-    process_student_data(input_filename)
+                    writer.writerow([student_id, f"{average_grade:
